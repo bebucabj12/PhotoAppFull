@@ -16,7 +16,6 @@ const styles = theme => ({
         flexWrap: 'wrap',
         justifyContent:'space-around',
         overFlow:'hidden',
-        backgroundColor: '#8F69C6',
         marginTop: 66,
         padding: 20
     },
@@ -110,8 +109,7 @@ class Profile extends Component {
                         )
                         :
                         'Loading...'
-                    }
-                 
+                    }                 
                 </Container>
             </div>
     )

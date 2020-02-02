@@ -114,8 +114,7 @@ class Register extends Component {
                     </Link>
                   </Grid>
                 </Grid>
-            </div>
-            
+            </div>            
         )
     }
 }

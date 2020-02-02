@@ -22,7 +22,6 @@ const App = () => (
       <Route path='*' component={() => '404 not Found'}/>
       </Switch>
   </div>
-)
- 
+);
 
 export default App;
