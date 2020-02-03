@@ -48,7 +48,10 @@ const styles = theme => ({
     },
     likeColor: {
         color: '#F99CAA'
-    }
+    },
+    likeColorChange: {
+        color:'#6E0D1E'
+    },
  })
 
 
@@ -90,15 +93,19 @@ class LandingPage extends Component {
         })  
         .then(res => res.json())
         .then(like => {
-            if(like === true) {
-                 //Cambio de color  
-            } else {
-                console.log('No')
+            if(like !== true) {
+                //Cambio de color  
+                 
+                console.log('Apreto like')
             }
         })
         .catch(error => console.error('Error:', error))
         .then(response => console.log('Success:', response));
     } 
+
+    handleChange = likeColor => e => {
+        this.setState({ likeColor: e.likeColorChange })
+     }
     
     //Prog. de boton de like, si esta logueado le da like a la foto, sino lo redirige a la pagina de register
     userRegister = (photo) => {
@@ -131,7 +138,7 @@ class LandingPage extends Component {
                                 <img src={photo.urls.small} alt={photo.title}/>
                                     <GridListTileBar 
                                         actionIcon={      
-                                            <IconButton className={classes.likeColor} onClick={() => this.userRegister(photo)}>                         
+                                            <IconButton className={classes.likeColor} onClick={() => this.userRegister(photo)}>
                                                 <FavoriteIcon />                                           
                                             </IconButton>
                                         }                                       
