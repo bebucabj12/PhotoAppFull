@@ -48,7 +48,10 @@ const styles = theme => ({
     },
     likeColor: {
         color: '#F99CAA'
-    }
+    },
+    likeColorChange: {
+        color:'#6E0D1E'
+    },
  })
 
 
@@ -58,6 +61,9 @@ class LandingPage extends Component {
         photos: null,
         pagina: 1,
         login: false,
+        likeColor: '#F99CAA',
+        likeColorChange: '#6E0D1E',
+        like: true,
     }    
     
     componentDidMount(){
@@ -90,21 +96,29 @@ class LandingPage extends Component {
         })  
         .then(res => res.json())
         .then(like => {
-            if(like === true) {
-                 //Cambio de color  
-            } else {
-                console.log('No')
+            if(like !== true) {
+                //Cambio de color
+                this.handleChange(data.idPhoto, this.state.likeColor)
+                console.log('Apreto like')
+                console.log('photoId:' +data.idPhoto)
+                console.log('color cambiado:' +this.state.likeColor)
             }
         })
-        .catch(error => console.error('Error:', error))
-        .then(response => console.log('Success:', response));
+        .catch(error => error)
+        .then(response => response);
     } 
+
+    handleChange = name => e => {
+        console.log(e.target.type)
+        this.setState({ photos: this.data.idPhoto , [name]: e.state.likeColorChange })
+        console.log(this.state.likeColorChange)
+    };    
     
     //Prog. de boton de like, si esta logueado le da like a la foto, sino lo redirige a la pagina de register
     userRegister = (photo) => {
         (localStorage.getItem('user')) ?
         (         
-           this.likesImage(photo)     
+           this.likesImage(photo)  
         )
         :
         this.props.history.push('/register')
@@ -131,7 +145,10 @@ class LandingPage extends Component {
                                 <img src={photo.urls.small} alt={photo.title}/>
                                     <GridListTileBar 
                                         actionIcon={      
-                                            <IconButton className={classes.likeColor} onClick={() => this.userRegister(photo)}>                         
+                                            <IconButton className={classes.likeColor} 
+                                                        onClick={() => this.userRegister(photo)} 
+                                                        onChange= {() => this.handleChange(this.data.idPhoto, classes.likeColorChange)} 
+                                                        >
                                                 <FavoriteIcon />                                           
                                             </IconButton>
                                         }                                       
