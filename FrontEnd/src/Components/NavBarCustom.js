@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { withRouter } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import auth from '../auth';
+import Search from './Search'
 
 const styles = theme => ({
   root: {
@@ -65,7 +66,11 @@ const styles = theme => ({
 
 
 class NavBarCustom extends Component {
-
+  
+  state = {
+    query: '',
+  }
+  
   //Redireccionado a 'login' despues de cerrar sesion
   logout = () => {
     (localStorage.removeItem('user')) ?
@@ -78,8 +83,15 @@ class NavBarCustom extends Component {
       )
   }
 
+  onChange = e => {
+    this.setState({ query: e.target.value });
+  }
+
+  
+
   render() {
 
+    const { query } = this.state;
     const { classes } = this.props;
     const { history } = this.props;
 
@@ -97,6 +109,8 @@ class NavBarCustom extends Component {
                         <SearchIcon />
                       </div>
                       <InputBase
+                        onChange={this.onchange}
+                        onClick={this.photos}
                         placeholder="Search…"
                         classes={{
                           root: classes.inputRoot,
